@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Adventure Grade 4 - Bahasa Inggris Kurikulum Merdeka</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Fredoka -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        explorer: {
+                            dark: '#1e3a8a',
+                            primary: '#2563eb',
+                            light: '#60a5fa',
+                            accent: '#f59e0b',
+                            gold: '#d97706',
+                            cream: '#fef3c7',
+                            softbg: '#f8fafc'
+                        }
+                    },
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 50%, #faf5ff 100%);
+            min-height: 100vh;
+        }
+
+        .font-game {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+
+        /* Steady glass card - Zero shaking, wobbling, or bouncing animations */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+            transform: none !important;
+            animation: none !important;
+            transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 12px 28px -5px rgba(37, 99, 235, 0.15);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2563eb;
+            border-radius: 10px;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #certificate-modal, #certificate-modal * {
+                visibility: visible;
+            }
+            #certificate-modal {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
+
+    <header class="bg-white/95 backdrop-blur sticky top-0 z-40 border-b border-slate-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between">
+            <!-- Brand & Title -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="openHomeModal()">
+                <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-sm">
+                    🧭
+                </div>
+                <div>
+                    <h1 class="font-game font-bold text-base md:text-lg text-blue-950 leading-tight">
+                        ENGLISH ADVENTURE GRADE 4
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium hidden sm:block">Bahasa Inggris Kurikulum Merdeka Kelas 4 SD/MI • Semester 1</p>
+                </div>
+            </div>
+
+            <!-- Header Controls -->
+            <div class="flex items-center gap-2 sm:gap-4">
+                <button onclick="openHomeModal()" class="font-game bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded-xl text-xs md:text-sm font-bold shadow-sm transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-house"></i>
+                    <span>HOME</span>
+                </button>
+
+                <!-- Audio Toggle & Slider -->
+                <div class="flex items-center bg-slate-100 border border-slate-200 rounded-xl px-2.5 py-1 gap-2">
+                    <button id="btn-audio-toggle" onclick="toggleMute()" class="text-blue-600 hover:text-blue-800 text-base font-bold transition" title="Mute / Unmute SFX">
+                        <i id="icon-audio" class="fa-solid fa-volume-high"></i>
+                    </button>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.8" oninput="changeVolume(this.value)" class="w-16 md:w-20 accent-blue-600 cursor-pointer" title="Atur Pengeras Suara">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-6 flex flex-col justify-center">
+
+        <!-- SCREEN 1: INSTANT LOGIN SCREEN (NO LOADING/BUFFERING DELAY) -->
+        <section id="screen-login" class="glass-card rounded-3xl p-6 md:p-10 text-center max-w-2xl mx-auto w-full my-auto">
+            <div class="flex justify-center items-center gap-4 mb-4">
+                <div class="w-28 h-28 md:w-32 md:h-32 bg-gradient-to-tr from-blue-600 to-amber-500 rounded-3xl p-3 shadow-md flex items-center justify-center relative">
+                    <!-- SVG Explorer Character Mascot -->
+                    <svg viewBox="0 0 120 120" class="w-full h-full drop-shadow-sm">
+                        <circle cx="60" cy="60" r="50" fill="#fef3c7"/>
+                        <!-- Explorer Hat -->
+                        <path d="M 25 45 Q 60 20 95 45 L 100 48 Q 60 38 20 48 Z" fill="#b45309"/>
+                        <path d="M 38 42 Q 60 25 82 42 L 80 32 Q 60 20 40 32 Z" fill="#d97706"/>
+                        <!-- Face -->
+                        <circle cx="60" cy="62" r="25" fill="#fed7aa"/>
+                        <!-- Happy eyes -->
+                        <circle cx="50" cy="58" r="3.5" fill="#1e293b"/>
+                        <circle cx="70" cy="58" r="3.5" fill="#1e293b"/>
+                        <!-- Bright Smile -->
+                        <path d="M 50 70 Q 60 80 70 70" stroke="#1e293b" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <!-- Cheeks -->
+                        <circle cx="45" cy="65" r="3" fill="#f87171" opacity="0.6"/>
+                        <circle cx="75" cy="65" r="3" fill="#f87171" opacity="0.6"/>
+                        <!-- Shirt / Scarf -->
+                        <path d="M 38 84 Q 60 92 82 84 L 85 105 Q 60 110 35 105 Z" fill="#2563eb"/>
+                        <path d="M 52 85 L 60 98 L 68 85 Z" fill="#f59e0b"/>
+                    </svg>
+                    <span class="absolute -top-2 -right-2 bg-amber-500 text-white font-bold text-xs px-2.5 py-1 rounded-full border-2 border-white shadow-sm">
+                        ⭐ Young Explorer
+                    </span>
+                </div>
+            </div>
+
+            <h2 class="font-game text-2xl md:text-4xl font-extrabold text-blue-950 mb-1 tracking-wide">
+                ENGLISH ADVENTURE GRADE 4
+            </h2>
+            <p class="text-xs md:text-sm font-bold text-amber-600 mb-6">
+                Bahasa Inggris Kurikulum Merdeka Kelas 4 SD/MI • Semester 1
+            </p>
+
+            <div class="bg-blue-50/80 border-2 border-blue-200 rounded-2xl p-5 mb-6 max-w-md mx-auto text-left">
+                <label for="student-name-input" class="block font-game text-slate-800 text-sm md:text-base mb-2 text-center">
+                    👋 Hello Explorer! Tuliskan Namamu:
+                </label>
+                <input type="text" id="student-name-input" placeholder="Tuliskan nama lengkapmu di sini..." 
+                    onkeydown="if(event.key === 'Enter') handleInstantLogin()"
+                    class="w-full px-4 py-3 rounded-xl border-2 border-blue-300 focus:border-blue-600 focus:outline-none text-center font-semibold text-slate-800 shadow-sm transition bg-white">
+                <p class="text-xs text-slate-500 mt-2 text-center">Tekan tombol <kbd class="px-1.5 py-0.5 bg-slate-200 rounded text-slate-700 font-bold">ENTER</kbd> atau klik tombol di bawah</p>
+            </div>
+
+            <!-- INSTANT LOGIN BUTTON (NO LOADING / BUFFERING) -->
+            <button onclick="handleInstantLogin()" class="font-game bg-gradient-to-r from-blue-600 to-amber-500 hover:from-blue-700 hover:to-amber-600 text-white font-bold text-lg md:text-xl px-8 py-3.5 rounded-2xl shadow-md transition w-full max-w-md flex items-center justify-center gap-2 mx-auto">
+                <span>🚀</span> MASUK / MULAI PETUALANGAN
+            </button>
+        </section>
+
+        <!-- SCREEN 2: MAIN DASHBOARD SCREEN (CLEAN & SIMPLE) -->
+        <section id="screen-dashboard" class="hidden glass-card rounded-3xl p-6 md:p-8 my-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between border-b border-slate-200 pb-5 mb-6 gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-amber-500 flex items-center justify-center text-white text-2xl font-bold shadow-sm">
+                        🧭
+                    </div>
+                    <div>
+                        <span id="dash-user-badge" class="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-xs">
+                            Explorer: Student
+                        </span>
+                        <h2 class="font-game text-2xl md:text-3xl font-extrabold text-slate-800 mt-1">
+                            English Learning Dashboard
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- Guidance Mascot Badge -->
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl px-4 py-2 flex items-center gap-2 text-xs font-semibold text-amber-900">
+                    <span class="text-lg">💬</span>
+                    <span>Pilih menu di bawah untuk belajar materi atau langsung mengerjakan kuis!</span>
+                </div>
+            </div>
+
+            <!-- 2 MAIN CLEAN SELECTION BUTTONS -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Option 1: MATERI -->
+                <div onclick="openMaterialScreen(1)" class="hover-card bg-gradient-to-br from-blue-50 to-indigo-50/60 border-2 border-blue-200 rounded-3xl p-6 shadow-sm cursor-pointer transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+                            📖
+                        </div>
+                        <h3 class="font-game text-2xl font-extrabold text-blue-950 mb-2">
+                            📖 MATERI PEMBELAJARAN
+                        </h3>
+                        <p class="text-xs md:text-sm text-slate-600 font-medium leading-relaxed mb-4">
+                            Pelajari kosakata (vocabulary), pola kalimat (sentence patterns), tata bahasa, dan percakapan sehari-hari untuk Unit 1 hingga Unit 4.
+                        </p>
+                    </div>
+                    <div class="inline-flex items-center text-xs md:text-sm font-bold text-blue-700 gap-1.5 pt-3 border-t border-blue-100">
+                        <span>Buka Modul Materi Lengkap</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- Option 2: KUIS -->
+                <div onclick="startQuiz(true)" class="hover-card bg-gradient-to-br from-amber-50 to-orange-50/60 border-2 border-amber-200 rounded-3xl p-6 shadow-sm cursor-pointer transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+                            📝
+                        </div>
+                        <h3 class="font-game text-2xl font-extrabold text-amber-950 mb-2">
+                            📝 KUIS EVALUASI (50 SOAL)
+                        </h3>
+                        <p class="text-xs md:text-sm text-slate-600 font-medium leading-relaxed mb-4">
+                            Uji pemahamanmu dengan 50 Soal Evaluasi terintegrasi. Raih nilai minimal KKM (75) untuk membuka Sertifikat Digital!
+                        </p>
+                    </div>
+                    <div class="inline-flex items-center text-xs md:text-sm font-bold text-amber-700 gap-1.5 pt-3 border-t border-amber-100">
+                        <span>Mulai Kuis 50 Soal Sekarang</span>
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLEAN LIST OF LEARNING UNITS (NO MESSY SUMMARY TEXT / NO EMOJIS) -->
+            <div class="bg-white border-2 border-slate-200 rounded-2xl p-5 shadow-sm">
+                <h4 class="font-game text-base md:text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-book-bookmark text-blue-600"></i>
+                    <span>Daftar Unit Pembelajaran (Semester 1)</span>
+                </h4>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button onclick="openMaterialScreen(1)" class="w-full text-left bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-xl px-4 py-3 font-semibold text-slate-700 hover:text-blue-900 transition flex items-center justify-between text-xs md:text-sm">
+                        <span>UNIT 1: WHAT ARE YOU DOING?</span>
+                        <i class="fa-solid fa-chevron-right text-slate-400"></i>
+                    </button>
+
+                    <button onclick="openMaterialScreen(2)" class="w-full text-left bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-xl px-4 py-3 font-semibold text-slate-700 hover:text-blue-900 transition flex items-center justify-between text-xs md:text-sm">
+                        <span>UNIT 2: THERE ARE 67 BOOKS</span>
+                        <i class="fa-solid fa-chevron-right text-slate-400"></i>
+                    </button>
+
+                    <button onclick="openMaterialScreen(3)" class="w-full text-left bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-xl px-4 py-3 font-semibold text-slate-700 hover:text-blue-900 transition flex items-center justify-between text-xs md:text-sm">
+                        <span>UNIT 3: MY LIVING ROOM IS BIG</span>
+                        <i class="fa-solid fa-chevron-right text-slate-400"></i>
+                    </button>
+
+                    <button onclick="openMaterialScreen(4)" class="w-full text-left bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-xl px-4 py-3 font-semibold text-slate-700 hover:text-blue-900 transition flex items-center justify-between text-xs md:text-sm">
+                        <span>UNIT 4: CICI COOKS IN THE KITCHEN</span>
+                        <i class="fa-solid fa-chevron-right text-slate-400"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: LEARNING MATERIALS MODULES (UNITS 1 - 4) -->
+        <section id="screen-material" class="hidden glass-card rounded-3xl p-6 md:p-8 my-auto max-h-[85vh] overflow-y-auto">
+            <!-- Header Bar inside Material Screen -->
+            <div class="flex flex-wrap items-center justify-between border-b border-slate-200 pb-4 mb-6 gap-3 sticky top-0 bg-white/95 backdrop-blur z-20 py-2">
+                <div class="flex items-center gap-2">
+                    <button onclick="openHomeModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Kembali ke Beranda</span>
+                    </button>
+                    <h2 class="font-game text-xl md:text-2xl font-extrabold text-slate-800">
+                        📖 English Learning Modules
+                    </h2>
+                </div>
+
+                <button onclick="startQuiz(true)" class="font-game bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+                    <span>📝</span>
+                    <span>MULAI KUIS 50 SOAL</span>
+                </button>
+            </div>
+
+            <!-- Material Tabs -->
+            <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-200 pb-3">
+                <button onclick="switchMaterialTab(1)" id="tab-mat-1" class="font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-blue-600 text-white font-bold transition">
+                    Unit 1: What Are You Doing?
+                </button>
+                <button onclick="switchMaterialTab(2)" id="tab-mat-2" class="font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 font-bold transition">
+                    Unit 2: Numbers 50 - 100
+                </button>
+                <button onclick="switchMaterialTab(3)" id="tab-mat-3" class="font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 font-bold transition">
+                    Unit 3: Parts of House
+                </button>
+                <button onclick="switchMaterialTab(4)" id="tab-mat-4" class="font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 font-bold transition">
+                    Unit 4: Cici Cooks in Kitchen
+                </button>
+            </div>
+
+            <!-- UNIT 1 CONTENT -->
+            <div id="mat-content-1" class="space-y-6">
+                <div class="bg-white border-2 border-blue-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-blue-950 font-bold mb-3 flex items-center gap-2">
+                        <span>📌</span> A. Daily Activities & Action Verbs (Kata Kerja Kegiatan)
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-700 mb-4 leading-relaxed">
+                        Di Unit 1 ini, kita belajar menyatakan kegiatan yang sedang dilakukan (Present Continuous Tense).
+                    </p>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 text-center mb-6">
+                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                            <span class="text-2xl block mb-1">📖</span>
+                            <span class="font-bold text-xs text-blue-900 block">Reading</span>
+                            <span class="text-[11px] text-slate-600">Membaca</span>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                            <span class="text-2xl block mb-1">✍️</span>
+                            <span class="font-bold text-xs text-blue-900 block">Writing</span>
+                            <span class="text-[11px] text-slate-600">Menulis</span>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                            <span class="text-2xl block mb-1">🍲</span>
+                            <span class="font-bold text-xs text-blue-900 block">Eating</span>
+                            <span class="text-[11px] text-slate-600">Makan</span>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                            <span class="text-2xl block mb-1">🥛</span>
+                            <span class="font-bold text-xs text-blue-900 block">Drinking</span>
+                            <span class="text-[11px] text-slate-600">Minum</span>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                            <span class="text-2xl block mb-1">😴</span>
+                            <span class="font-bold text-xs text-blue-900 block">Sleeping</span>
+                            <span class="text-[11px] text-slate-600">Tidur</span>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                            <span class="text-2xl block mb-1">📝</span>
+                            <span class="font-bold text-xs text-blue-900 block">Studying</span>
+                            <span class="text-[11px] text-slate-600">Belajar</span>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                            <span class="text-2xl block mb-1">⚽</span>
+                            <span class="font-bold text-xs text-blue-900 block">Playing</span>
+                            <span class="text-[11px] text-slate-600">Bermain</span>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                            <span class="text-2xl block mb-1">📺</span>
+                            <span class="font-bold text-xs text-blue-900 block">Watching TV</span>
+                            <span class="text-[11px] text-slate-600">Nonton TV</span>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                            <span class="text-2xl block mb-1">🍳</span>
+                            <span class="font-bold text-xs text-blue-900 block">Cooking</span>
+                            <span class="text-[11px] text-slate-600">Memasak</span>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                            <span class="text-2xl block mb-1">🧼</span>
+                            <span class="font-bold text-xs text-blue-900 block">Washing</span>
+                            <span class="text-[11px] text-slate-600">Mencuci</span>
+                        </div>
+                    </div>
+
+                    <h4 class="font-bold text-blue-900 text-sm mb-2">💬 Sentence Structure (Pola Kalimat):</h4>
+                    <div class="space-y-2 text-xs md:text-sm">
+                        <div class="bg-amber-50 p-3 rounded-xl border border-amber-200">
+                            <p class="font-bold text-amber-900">Tanya: "What are you doing?" (Apa yang sedang kamu lakukan?)</p>
+                            <p class="text-slate-700">Jawab: <b>"I am reading a book."</b> (Saya sedang membaca buku.)</p>
+                        </div>
+                        <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200">
+                            <p class="font-bold text-emerald-900">Tanya: "What is he / she doing?" (Apa yang sedang dia lakukan?)</p>
+                            <p class="text-slate-700">Jawab: <b>"He is eating fried rice."</b> / <b>"She is studying English."</b></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNIT 2 CONTENT -->
+            <div id="mat-content-2" class="hidden space-y-6">
+                <div class="bg-white border-2 border-amber-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-amber-950 font-bold mb-3 flex items-center gap-2">
+                        <span>🔢</span> A. Numbers 50 to 100 & Counting Nouns
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-700 mb-4 leading-relaxed">
+                        Mengenal angka puluhan dari 50 sampai 100 serta cara menghitung jumlah benda (Singular & Plural).
+                    </p>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 text-center mb-6 text-xs font-bold">
+                        <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-200">50: Fifty</div>
+                        <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-200">60: Sixty</div>
+                        <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-200">70: Seventy</div>
+                        <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-200">80: Eighty</div>
+                        <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-200">90: Ninety</div>
+                        <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-200">100: One hundred</div>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 text-xs md:text-sm">
+                        <h4 class="font-bold text-blue-900 mb-2">💡 Singular vs Plural Nouns (Benda Tunggal & Jamak):</h4>
+                        <ul class="list-disc list-inside space-y-1 text-slate-700">
+                            <li>1 Benda (Singular): <b>One book</b> / <b>One pencil</b></li>
+                            <li>Banyak Benda (Plural): Tambahkan akhiran <b>-s / -es</b> ➔ <b>Sixty-seven books</b> / <b>Fifty pencils</b>.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-xs md:text-sm">
+                        <h4 class="font-bold text-emerald-900 mb-2">➕ Math Operations in English:</h4>
+                        <p class="text-slate-700">"Twenty plus thirty is fifty" (20 + 30 = 50)</p>
+                        <p class="text-slate-700">"Eighty minus twenty is sixty" (80 - 20 = 60)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNIT 3 CONTENT -->
+            <div id="mat-content-3" class="hidden space-y-6">
+                <div class="bg-white border-2 border-teal-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-teal-950 font-bold mb-3 flex items-center gap-2">
+                        <span>🏡</span> A. Parts of the House & Furniture
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-700 mb-4 leading-relaxed">
+                        Mengenal ruangan-ruangan di rumah, perabot (furniture), dan kata sifat (adjectives) penggambar kondisi ruangan.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm mb-4">
+                        <div class="bg-teal-50 p-4 rounded-xl border border-teal-200">
+                            <h4 class="font-bold text-teal-900 mb-2">🏠 Rooms in the House:</h4>
+                            <ul class="list-disc list-inside space-y-1 text-slate-700">
+                                <li><b>Living room:</b> Ruang tamu</li>
+                                <li><b>Bedroom:</b> Kamar tidur</li>
+                                <li><b>Kitchen:</b> Dapur</li>
+                                <li><b>Bathroom:</b> Kamar mandi</li>
+                                <li><b>Dining room:</b> Ruang makan</li>
+                                <li><b>Garage:</b> Garasi</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+                            <h4 class="font-bold text-blue-900 mb-2">🛋️ Furniture & Objects:</h4>
+                            <ul class="list-disc list-inside space-y-1 text-slate-700">
+                                <li><b>Sofa:</b> Sofa / Kursi empuk</li>
+                                <li><b>Table & Chair:</b> Meja & Kursi</li>
+                                <li><b>Television:</b> Televisi</li>
+                                <li><b>Bed & Wardrobe:</b> Tempat tidur & Lemari pakaian</li>
+                                <li><b>Stove & Refrigerator:</b> Kompor & Kulkas</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs md:text-sm">
+                        <h4 class="font-bold text-amber-900 mb-2">✨ Adjectives (Kata Sifat):</h4>
+                        <p class="text-slate-700"><b>Big</b> (Besar) VS <b>Small</b> (Kecil) | <b>Clean</b> (Bersih) VS <b>Dirty</b> (Kotor) | <b>Tidy</b> (Rapi) VS <b>Messy</b> (Berantakan)</p>
+                        <p class="text-slate-700 mt-2"><b>Contoh Kalimat:</b> "My living room is big and clean." / "There is a big sofa in the living room."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNIT 4 CONTENT -->
+            <div id="mat-content-4" class="hidden space-y-6">
+                <div class="bg-white border-2 border-purple-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-purple-950 font-bold mb-3 flex items-center gap-2">
+                        <span>🍳</span> A. Prepositions of Place & Room Activities
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-700 mb-4 leading-relaxed">
+                        Menjelaskan letak posisi benda (Prepositions of Place) dan menggabungkannya dengan kegiatan harian di rumah.
+                    </p>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center mb-4 text-xs font-bold">
+                        <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">In (Di dalam)</div>
+                        <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">On (Di atas menempel)</div>
+                        <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">Under (Di bawah)</div>
+                        <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">Beside (Di samping)</div>
+                        <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">Behind (Di belakang)</div>
+                        <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">In front of (Di depan)</div>
+                        <div class="bg-purple-50 p-3 rounded-xl border border-purple-200 sm:col-span-2">Between (Di antara dua benda)</div>
+                    </div>
+
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-xs md:text-sm space-y-2">
+                        <h4 class="font-bold text-emerald-900 mb-1">🗣️ Example Conversations:</h4>
+                        <p class="text-slate-700"><b>Q:</b> "Where is Cici?" ➔ <b>A:</b> "She is in the kitchen."</p>
+                        <p class="text-slate-700"><b>Q:</b> "What does she do in the kitchen?" ➔ <b>A:</b> "She cooks breakfast."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 4: QUIZ EVALUATION SCREEN (STRICTLY NO "BACA MATERI" BUTTON) -->
+        <section id="screen-quiz" class="hidden glass-card rounded-3xl p-6 md:p-8 my-auto">
+            <!-- Quiz Header Bar -->
+            <div class="flex flex-wrap items-center justify-between border-b border-slate-200 pb-4 mb-6 gap-2">
+                <div>
+                    <span id="quiz-progress-badge" class="font-game text-xs md:text-sm bg-blue-100 text-blue-800 px-3.5 py-1 rounded-full font-bold border border-blue-200">
+                        SOAL 1 DARI 50
+                    </span>
+                    <h3 id="quiz-user-badge" class="font-game text-base md:text-lg font-bold text-slate-800 mt-1">
+                        Explorer: Student
+                    </h3>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <div class="bg-amber-100 border border-amber-300 px-4 py-1.5 rounded-xl text-amber-900 font-game font-bold text-sm">
+                        ⭐ Skor: <span id="quiz-score-display">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card Box -->
+            <div class="bg-white border-2 border-slate-200 rounded-2xl p-5 md:p-6 shadow-sm mb-6">
+                <div class="flex items-center justify-between mb-3">
+                    <span id="question-chapter-badge" class="px-3 py-1 rounded-md text-xs font-bold bg-blue-100 text-blue-900">
+                        Unit 1
+                    </span>
+                    <span id="question-difficulty-badge" class="px-3 py-1 rounded-md text-xs font-bold bg-slate-100 text-slate-700">
+                        Level: Easy
+                    </span>
+                </div>
+
+                <div id="question-context-box" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-3 mb-4 text-xs md:text-sm italic text-slate-700">
+                </div>
+
+                <p id="question-text" class="font-game text-lg md:text-2xl font-bold text-slate-800 leading-snug mb-6">
+                    Memuat soal...
+                </p>
+
+                <!-- 4 Options Grid -->
+                <div id="options-container" class="grid grid-cols-1 gap-3">
+                </div>
+            </div>
+
+            <!-- Feedback & Explanation Box -->
+            <div id="quiz-feedback-box" class="hidden border-2 rounded-2xl p-5 mb-6 transition-all duration-200">
+                <div class="flex items-center gap-3 mb-2">
+                    <span id="feedback-icon" class="text-2xl"></span>
+                    <h4 id="feedback-title" class="font-game text-xl font-bold"></h4>
+                </div>
+                <div id="feedback-explanation" class="text-xs md:text-sm text-slate-700 leading-relaxed mb-4">
+                </div>
+                <button onclick="nextQuizQuestion()" class="font-game bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl shadow-sm transition flex items-center gap-2">
+                    <span>LANJUT KE SOAL BERIKUTNYA</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN 5: RESULT EVALUATION SCREEN (KKM 75 & CERTIFICATE CONDITION) -->
+        <section id="screen-result" class="hidden glass-card rounded-3xl p-6 md:p-10 text-center max-w-2xl mx-auto w-full my-auto">
+            <div id="result-emoji" class="text-5xl mb-3">🎉</div>
+            <h2 class="font-game text-3xl md:text-4xl font-extrabold text-slate-800 mb-1">
+                EVALUASI KUIS SELESAI!
+            </h2>
+            <p id="result-user-title" class="font-game text-lg text-blue-800 font-bold mb-6">
+                Good Job, Explorer!
+            </p>
+
+            <div class="bg-gradient-to-br from-blue-50 to-amber-50 border-2 border-blue-200 rounded-2xl p-6 mb-6 shadow-inner">
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Nilai Akhir Evaluasi</p>
+                <div class="font-game text-5xl md:text-6xl font-black text-blue-900 mb-2">
+                    <span id="final-score-val">0</span> <span class="text-2xl text-slate-400 font-semibold">/ 100</span>
+                </div>
+                
+                <div id="kkm-status-badge" class="inline-block px-4 py-1.5 rounded-full font-game font-bold text-sm mb-4">
+                    STATUS KKM
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-xs md:text-sm font-semibold border-t border-blue-200/60 pt-4">
+                    <div class="bg-emerald-100/80 text-emerald-900 p-2.5 rounded-xl border border-emerald-200">
+                        ✅ Benar: <span id="final-correct-val" class="text-base font-bold">0</span> Soal
+                    </div>
+                    <div class="bg-rose-100/80 text-rose-900 p-2.5 rounded-xl border border-rose-200">
+                        ❌ Salah: <span id="final-wrong-val" class="text-base font-bold">0</span> Soal
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motivational Message Box for Score < 75 -->
+            <div id="result-motivation-box" class="hidden bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 mb-6 text-xs md:text-sm text-amber-900 font-semibold">
+                💪 Tetap semangat! Nilaimu belum mencapai KKM (75). Ayo baca lagi materi pembelajaran dan ulangi kuis ini!
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-3">
+                <button id="btn-cert-action" onclick="openCertificateModal()" class="font-game bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold px-6 py-3.5 rounded-2xl shadow-md transition flex items-center justify-center gap-2">
+                    <span>🏆</span> LIHAT / CETAK SERTIFIKAT DIGITAL
+                </button>
+                <button id="btn-read-material-again" onclick="openMaterialScreen(1)" class="hidden font-game bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-2xl shadow-md transition items-center justify-center gap-2">
+                    <span>📖</span> BACA MATERI LAGI
+                </button>
+                <button onclick="restartQuiz()" class="font-game bg-slate-700 hover:bg-slate-800 text-white font-bold px-6 py-3.5 rounded-2xl shadow-md transition flex items-center justify-center gap-2">
+                    <span>🔄</span> ULANGI KUIS DARI NO. 1
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CLEAN POPUP MODAL FOR HOME BUTTON (2 CLEAN OPTIONS) -->
+    <div id="home-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm p-4 flex items-center justify-center">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 border-4 border-blue-500 relative shadow-2xl text-center">
+            <button onclick="closeHomeModal()" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-600 w-8 h-8 rounded-full font-bold text-base flex items-center justify-center transition">
+                ✕
+            </button>
+
+            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">
+                🧭
+            </div>
+            <h3 class="font-game text-xl font-bold text-slate-800 mb-1">Pilih Menu Navigasi</h3>
+            <p class="text-xs text-slate-500 mb-6">Silakan pilih tujuan pembelajaranmu:</p>
+
+            <div class="space-y-3">
+                <button onclick="closeHomeModal(); openMaterialScreen(1)" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-game font-bold py-3.5 px-4 rounded-2xl text-base shadow-sm transition flex items-center justify-center gap-2">
+                    <span>📖</span> MATERI PEMBELAJARAN
+                </button>
+                <button onclick="closeHomeModal(); startQuiz(true)" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-game font-bold py-3.5 px-4 rounded-2xl text-base shadow-sm transition flex items-center justify-center gap-2">
+                    <span>📝</span> KUIS EVALUASI (50 SOAL)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CERTIFICATE MODAL (PRINT FRIENDLY) -->
+    <div id="certificate-modal" class="hidden fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm p-4 overflow-y-auto flex items-center justify-center">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-6 md:p-10 border-8 border-amber-400 relative shadow-2xl my-8">
+            <button onclick="closeCertificateModal()" class="no-print absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-600 w-10 h-10 rounded-full font-bold text-xl flex items-center justify-center transition">
+                ✕
+            </button>
+
+            <!-- Printable Certificate Body -->
+            <div class="border-4 border-dashed border-blue-400 rounded-2xl p-6 md:p-8 text-center bg-gradient-to-b from-amber-50/40 via-white to-blue-50/30 relative overflow-hidden">
+                
+                <!-- STAMP BADGE -->
+                <div class="absolute top-4 right-4 border-4 border-emerald-600 text-emerald-700 rounded-full p-2 w-20 h-20 md:w-24 md:h-24 flex flex-col items-center justify-center rotate-12 opacity-85 font-black text-[10px] md:text-xs tracking-wider uppercase">
+                    <span>PASSED</span>
+                    <span class="text-emerald-800 border-t border-emerald-600 pt-0.5">LULUS KKM</span>
+                </div>
+
+                <div class="w-16 h-16 mx-auto mb-2 text-amber-500">
+                    <i class="fa-solid fa-award text-5xl"></i>
+                </div>
+                
+                <h3 class="font-game text-xs tracking-widest uppercase font-bold text-blue-900 mb-1">
+                    CERTIFICATE OF ACHIEVEMENT
+                </h3>
+                <h2 class="font-game text-2xl md:text-3xl font-extrabold text-slate-800 mb-4">
+                    ENGLISH ADVENTURE GRADE 4
+                </h2>
+
+                <p class="text-xs md:text-sm text-slate-600 italic mb-2">Sertifikat ini secara terhormat diberikan kepada:</p>
+                <h1 id="cert-student-name" class="font-game text-2xl md:text-4xl font-black text-blue-900 border-b-2 border-blue-400 inline-block px-8 py-1 mb-3">
+                    [NAMA SISWA]
+                </h1>
+
+                <p id="cert-predicate-text" class="font-game text-lg font-bold text-amber-600 mb-4">
+                    🏆 MASTER ENGLISH EXPLORER
+                </p>
+
+                <p class="text-xs md:text-sm text-slate-700 max-w-2xl mx-auto leading-relaxed mb-6">
+                    Telah berhasil menyelesaikan 50 Soal Evaluasi Bahasa Inggris Kurikulum Merdeka Kelas 4 SD/MI Semester 1 dengan hasil melampaui KKM (75).
+                </p>
+
+                <div class="inline-flex flex-wrap justify-center gap-6 bg-blue-50 border border-blue-200 rounded-2xl px-6 py-3 mb-6 text-xs md:text-sm font-bold text-blue-950">
+                    <div>Nilai Akhir: <span id="cert-score-display" class="text-blue-700 font-extrabold">0</span> / 100</div>
+                    <div>Status: <span class="text-emerald-600 font-extrabold">TUNTAS KKM (75)</span></div>
+                    <div>Tanggal: <span id="cert-date-display" class="text-slate-700">-</span></div>
+                </div>
+
+                <div class="flex justify-between items-end text-left border-t border-slate-200 pt-4 text-xs text-slate-500">
+                    <div>
+                        <p class="font-bold text-slate-800">Media Pembelajaran Interaktif</p>
+                        <p>Bahasa Inggris Grade 4 SD/MI</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-slate-800">Identitas Pengembang:</p>
+                        <p class="text-blue-800 font-bold">Pengembang: Giga Inovation | 081329200985</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="no-print mt-6 flex justify-center">
+                <button onclick="window.print()" class="font-game bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-2xl shadow-md transition flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i> CETAK / SIMPAN PDF SERTIFIKAT
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PERSISTENT FOOTER WITH DEVELOPER IDENTITY -->
+    <footer class="bg-white/90 backdrop-blur border-t border-slate-200 py-3 text-center text-xs md:text-sm font-semibold text-slate-600 mt-auto">
+        Pengembang: <span class="text-blue-800 font-bold">Giga Inovation</span> | 081329200985
+    </footer>
+
+    <script>
+        /* STATE VARIABLES */
+        let studentName = "";
+        let currentQuestionIndex = 0;
+        let score = 0; // 50 questions x 2 points = 100 max
+        let correctCount = 0;
+        let wrongCount = 0;
+        let isMuted = false;
+        let globalVolume = 0.8;
+        let audioCtx = null;
+
+        /* WEB AUDIO API SYNTHESIZER FOR SOUND EFFECTS */
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playSFX(type) {
+            if (isMuted) return;
+            initAudio();
+            if (!audioCtx) return;
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+            gain.gain.setValueAtTime(globalVolume * 0.3, now);
+
+            if (type === 'click') {
+                osc.frequency.setValueAtTime(500, now);
+                osc.frequency.exponentialRampToValueAtTime(900, now + 0.07);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.07);
+                osc.start(now);
+                osc.stop(now + 0.07);
+            } else if (type === 'correct') {
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.setValueAtTime(659.25, now + 0.1);
+                osc.frequency.setValueAtTime(783.99, now + 0.2);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.setValueAtTime(160, now + 0.15);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'fanfare') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.setValueAtTime(659.25, now + 0.12);
+                osc.frequency.setValueAtTime(783.99, now + 0.24);
+                osc.frequency.setValueAtTime(1046.50, now + 0.36);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+                osc.start(now);
+                osc.stop(now + 0.6);
+            }
+        }
+
+        /* TEXT TO SPEECH (WEB SPEECH API) */
+        function speakNarrator(text) {
+            if (isMuted) return;
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'id-ID';
+                utterance.volume = globalVolume;
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const icon = document.getElementById('icon-audio');
+            if (isMuted) {
+                icon.className = "fa-solid fa-volume-xmark text-rose-600";
+                window.speechSynthesis.cancel();
+            } else {
+                icon.className = "fa-solid fa-volume-high text-blue-600";
+                playSFX('click');
+            }
+        }
+
+        function changeVolume(val) {
+            globalVolume = parseFloat(val);
+        }
+
+        function showScreen(screenId) {
+            playSFX('click');
+            const screens = ['screen-login', 'screen-dashboard', 'screen-material', 'screen-quiz', 'screen-result'];
+            screens.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        function openHomeModal() {
+            if (studentName) {
+                playSFX('click');
+                document.getElementById('home-modal').classList.remove('hidden');
+            } else {
+                showScreen('screen-login');
+            }
+        }
+
+        function closeHomeModal() {
+            playSFX('click');
+            document.getElementById('home-modal').classList.add('hidden');
+        }
+
+        /* INSTANT LOGIN FUNCTION - ZERO LOADING / BUFFERING DELAY */
+        function handleInstantLogin() {
+            const input = document.getElementById('student-name-input');
+            const val = input.value.trim();
+            if (!val) {
+                alert('Tuliskan namamu terlebih dahulu!');
+                return;
+            }
+            studentName = val;
+            document.getElementById('dash-user-badge').textContent = `Explorer: ${studentName}`;
+            
+            // INSTANT TRANSITION TO DASHBOARD (NO SPINNER / BUFFERING)
+            showScreen('screen-dashboard');
+            speakNarrator(`Hello ${studentName}! Selamat belajar Bahasa Inggris Kelas 4.`);
+        }
+
+        function openMaterialScreen(tabNum = 1) {
+            showScreen('screen-material');
+            switchMaterialTab(tabNum);
+        }
+
+        function switchMaterialTab(tabNum) {
+            playSFX('click');
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById(`tab-mat-${i}`);
+                const content = document.getElementById(`mat-content-${i}`);
+                if (i === tabNum) {
+                    btn.className = "font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-blue-600 text-white font-bold transition";
+                    content.classList.remove('hidden');
+                } else {
+                    btn.className = "font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 font-bold transition";
+                    content.classList.add('hidden');
+                }
+            }
+        }
+
+        const questionsData = [
+            // UNIT 1: WHAT ARE YOU DOING? (13 QUESTIONS)
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Easy",
+                question: "Look at the situation: Made is holding a storybook and reading it. Made is...",
+                options: ["reading a book", "eating fried rice", "sleeping in bed", "watching TV"],
+                answer: 0,
+                explanation: "Membaca buku dalam Bahasa Inggris adalah 'reading a book'."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Easy",
+                question: "Cici is in the dining room with a glass of milk. What is Cici doing?",
+                options: ["She is sleeping.", "She is drinking milk.", "She is cooking.", "She is washing hands."],
+                answer: 1,
+                explanation: "Minum susu dalam Bahasa Inggris adalah 'drinking milk'."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Medium",
+                question: "Complete the sentence: 'Aisyah is ... fried chicken in the canteen.'",
+                options: ["drinking", "eating", "writing", "sleeping"],
+                answer: 1,
+                explanation: "Kata kerja yang tepat untuk 'fried chicken' (ayam goreng) adalah 'eating' (makan)."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Medium",
+                question: "Tanya: 'What are you doing?' ➔ Jawab: 'I ... studying English.'",
+                options: ["is", "am", "are", "were"],
+                answer: 1,
+                explanation: "Subjek 'I' selalu diikuti oleh to be 'am' (I am studying)."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Medium",
+                question: "Joshua is in the yard. He is kicking a ball with his friends. Joshua is...",
+                options: ["playing football", "watching television", "writing a letter", "cooking noodles"],
+                answer: 0,
+                explanation: "Bermain sepak bola dalam Bahasa Inggris adalah 'playing football'."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Easy",
+                question: "What is the English word for 'menulis'?",
+                options: ["Reading", "Writing", "Cooking", "Washing"],
+                answer: 1,
+                explanation: "'Menulis' dalam Bahasa Inggris adalah 'Writing'."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Medium",
+                question: "Bagas is in the bedroom at night. He is lying on the bed with eyes closed. He is...",
+                options: ["sleeping", "running", "drinking", "cooking"],
+                answer: 0,
+                explanation: "Tidur di atas tempat tidur adalah 'sleeping'."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Hard",
+                question: "Tanya: 'What is Cici doing in the kitchen?' ➔ Jawab: 'She ... cooking soup.'",
+                options: ["am", "is", "are", "do"],
+                answer: 1,
+                explanation: "Subjek 'She' menggunakan to be 'is' (She is cooking)."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Medium",
+                question: "Mother is in the kitchen with plates and soap. She is ... the dishes.",
+                options: ["washing", "reading", "sleeping", "playing"],
+                answer: 0,
+                explanation: "Mencuci piring adalah 'washing the dishes'."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Easy",
+                question: "What is the meaning of 'watching TV' in Indonesian?",
+                options: ["Mendengarkan musik", "Menonton TV", "Membaca komik", "Memasak makanan"],
+                answer: 1,
+                explanation: "'Watching TV' artinya menonton televisi."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Hard",
+                question: "Kiki and Joshua ... playing badminton in the park.",
+                options: ["is", "am", "are", "was"],
+                answer: 2,
+                explanation: "Subjek 'Kiki and Joshua' (dua orang/plural) menggunakan to be 'are'."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Medium",
+                question: "Complete the sentence: 'Ujang is writing a ... on his notebook.'",
+                options: ["letter", "soup", "pillow", "television"],
+                answer: 0,
+                explanation: "Benda yang bisa ditulis di buku catatan adalah 'letter' (surat/tulisan)."
+            },
+            {
+                chapter: "Unit 1: What Are You Doing?",
+                level: "Hard",
+                question: "Rearrange these words: [is - Aisyah - a book - reading].",
+                options: ["Aisyah is reading a book.", "Reading is Aisyah a book.", "A book is reading Aisyah.", "Is Aisyah book a reading."],
+                answer: 0,
+                explanation: "Susunan kalimat berita yang benar: Subject + to be + Verb-ing + Object (Aisyah is reading a book)."
+            },
+
+            // UNIT 2: THERE ARE 67 BOOKS (12 QUESTIONS)
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Easy",
+                question: "What is the English word for number '67'?",
+                options: ["Sixty-five", "Sixty-seven", "Seventy-six", "Fifty-seven"],
+                answer: 1,
+                explanation: "Angka 67 ditulis 'Sixty-seven'."
+            },
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Easy",
+                question: "How do you say number '85' in English?",
+                options: ["Eighty-five", "Fifty-eight", "Seventy-five", "Ninety-five"],
+                answer: 0,
+                explanation: "Angka 85 dalam Bahasa Inggris adalah 'Eighty-five'."
+            },
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Medium",
+                question: "What is 'Twenty plus thirty'?",
+                options: ["Forty", "Fifty", "Sixty", "Seventy"],
+                answer: 1,
+                explanation: "20 + 30 = 50 (Fifty)."
+            },
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Medium",
+                question: "Calculate this: 'Ninety minus twenty is ...'",
+                options: ["Seventy", "Eighty", "Sixty", "Fifty"],
+                answer: 0,
+                explanation: "90 - 20 = 70 (Seventy)."
+            },
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Medium",
+                question: "There is 1 pencil. But there are 50 ... in the box.",
+                options: ["pencil", "pencils", "book", "pen"],
+                answer: 1,
+                explanation: "Untuk jumlah jamak (50), tambahkan akhiran '-s' pada kata benda menjadi 'pencils'."
+            },
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Hard",
+                question: "Tanya: 'How many books are there on the table?' ➔ Jawab: 'There ... seventy books.'",
+                options: ["is", "are", "am", "was"],
+                answer: 1,
+                explanation: "Untuk benda jamak (seventy books), kita menggunakan 'There are'."
+            },
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Easy",
+                question: "What is number '100' in English?",
+                options: ["One thousand", "One hundred", "Fifty", "Ninety"],
+                answer: 1,
+                explanation: "Angka 100 adalah 'One hundred'."
+            },
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Medium",
+                question: "Number '74' in words is...",
+                options: ["Seventy-four", "Sixty-four", "Eighty-four", "Forty-seven"],
+                answer: 0,
+                explanation: "Angka 74 adalah 'Seventy-four'."
+            },
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Hard",
+                question: "Fifty plus forty is...",
+                options: ["Eighty", "Ninety", "One hundred", "Seventy"],
+                answer: 1,
+                explanation: "50 + 40 = 90 (Ninety)."
+            },
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Medium",
+                question: "Which one is plural noun?",
+                options: ["One ruler", "A sharpener", "Sixty chairs", "One table"],
+                answer: 2,
+                explanation: "'Sixty chairs' merupakan kata benda jamak (plural)."
+            },
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Hard",
+                question: "Complete the sequence: 50, 60, 70, ..., 90, 100.",
+                options: ["Seventy-five", "Eighty", "Eighty-five", "Sixty-five"],
+                answer: 1,
+                explanation: "Kelipatan 10 setelah 70 adalah 80 (Eighty)."
+            },
+            {
+                chapter: "Unit 2: Numbers 50 to 100",
+                level: "Medium",
+                question: "There ... one big sofa in the living room.",
+                options: ["are", "is", "were", "am"],
+                answer: 1,
+                explanation: "Untuk benda tunggal (one big sofa), gunakan 'There is'."
+            },
+
+            // UNIT 3: MY LIVING ROOM IS BIG (13 QUESTIONS)
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Easy",
+                question: "Where do you watch TV with your family?",
+                options: ["In the bathroom", "In the living room", "In the garage", "In the garden"],
+                answer: 1,
+                explanation: "Menonton TV bersama keluarga biasanya dilakukan di 'living room' (ruang tamu/keluarga)."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Easy",
+                question: "Where do you sleep at night?",
+                options: ["In the kitchen", "In the bedroom", "In the dining room", "In the garage"],
+                answer: 1,
+                explanation: "Tempat tidur di malam hari adalah 'bedroom' (kamar tidur)."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Medium",
+                question: "The room is full of trash and dirty clothes. The room is...",
+                options: ["clean", "tidy", "dirty", "big"],
+                answer: 2,
+                explanation: "Ruangan yang penuh sampah dan pakaian kotor adalah 'dirty' (kotor)."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Medium",
+                question: "Opposite word of 'Big' (Besar) is...",
+                options: ["Clean", "Small", "Tidy", "Long"],
+                answer: 1,
+                explanation: "Lawan kata 'Big' (besar) adalah 'Small' (kecil)."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Easy",
+                question: "What furniture do you usually find in the living room?",
+                options: ["Sofa and television", "Stove and frying pan", "Pillow and blanket", "Shower and soap"],
+                answer: 0,
+                explanation: "Perabot utama di ruang tamu adalah sofa dan televisi."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Medium",
+                question: "Where does father park his motorcycle or car?",
+                options: ["In the kitchen", "In the garage", "In the bathroom", "In the bedroom"],
+                answer: 1,
+                explanation: "Tempat memarkir kendaraan adalah 'garage' (garasi)."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Medium",
+                question: "Mother cleans the room every day. The room becomes...",
+                options: ["dirty", "messy", "clean and tidy", "small"],
+                answer: 2,
+                explanation: "Ruangan yang dibersihkan setiap hari menjadi 'clean and tidy' (bersih dan rapi)."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Hard",
+                question: "The Indonesian meaning of 'Wardrobe' is...",
+                options: ["Meja makan", "Lemari pakaian", "Kulkas", "Kompor gas"],
+                answer: 1,
+                explanation: "'Wardrobe' artinya lemari pakaian."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Medium",
+                question: "Where do we eat breakfast and dinner together?",
+                options: ["In the dining room", "In the bathroom", "In the garage", "In the garden"],
+                answer: 0,
+                explanation: "Tempat makan bersama adalah 'dining room' (ruang makan)."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Hard",
+                question: "Look at the sentence: 'My bedroom is clean ... comfortable.'",
+                options: ["but", "and", "or", "so"],
+                answer: 1,
+                explanation: "Kata hubung yang tepat untuk menggabungkan dua sifat positif adalah 'and' (dan)."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Medium",
+                question: "Where do you take a bath and wash your hands?",
+                options: ["In the kitchen", "In the bathroom", "In the living room", "In the bedroom"],
+                answer: 1,
+                explanation: "Mandi dan mencuci tangan dilakukan di 'bathroom' (kamar mandi)."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Easy",
+                question: "What is the English word for 'Kulkas'?",
+                options: ["Stove", "Refrigerator", "Cupboard", "Mirror"],
+                answer: 1,
+                explanation: "'Kulkas' dalam Bahasa Inggris adalah 'Refrigerator'."
+            },
+            {
+                chapter: "Unit 3: Parts of the House",
+                level: "Hard",
+                question: "Books and toys are scattered all over the floor. The room is...",
+                options: ["messy", "clean", "tidy", "empty"],
+                answer: 0,
+                explanation: "Ruangan yang barang-barangnya berserakan disebut 'messy' (berantakan)."
+            },
+
+            // UNIT 4: CICI COOKS IN THE KITCHEN (12 QUESTIONS)
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Easy",
+                question: "Where is Cici? She is near the stove with a frying pan. She is in the...",
+                options: ["kitchen", "bedroom", "garage", "bathroom"],
+                answer: 0,
+                explanation: "Ruangan dengan kompor dan wajan adalah 'kitchen' (dapur)."
+            },
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Easy",
+                question: "What preposition means 'Di bawah'?",
+                options: ["On", "In", "Under", "Beside"],
+                answer: 2,
+                explanation: "'Under' artinya di bawah."
+            },
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Medium",
+                question: "The cat is sleeping ... the chair. (Di atas permukaan kursi)",
+                options: ["in", "on", "under", "behind"],
+                answer: 1,
+                explanation: "Untuk posisi menempel di atas permukaan, gunakan 'on'."
+            },
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Medium",
+                question: "The shoes are ... the door. (Di belakang pintu)",
+                options: ["behind", "in front of", "between", "under"],
+                answer: 0,
+                explanation: "'Behind' artinya di belakang."
+            },
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Hard",
+                question: "The table is ... the sofa and the television. (Di antara dua benda)",
+                options: ["beside", "between", "under", "behind"],
+                answer: 1,
+                explanation: "Untuk posisi di antara dua benda, gunakan 'between'."
+            },
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Medium",
+                question: "Tanya: 'Where is Made?' ➔ Jawab: 'He is ... the bathroom taking a shower.'",
+                options: ["in", "on", "under", "between"],
+                answer: 0,
+                explanation: "Untuk berada di dalam ruangan, gunakan 'in' (in the bathroom)."
+            },
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Easy",
+                question: "What preposition means 'Di depan'?",
+                options: ["Beside", "In front of", "Under", "Behind"],
+                answer: 1,
+                explanation: "'In front of' artinya di depan."
+            },
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Medium",
+                question: "Grandfather is standing ... the house in the garden. (Di samping rumah)",
+                options: ["beside", "under", "in", "between"],
+                answer: 0,
+                explanation: "'Beside' artinya di samping."
+            },
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Hard",
+                question: "What does mother do in the kitchen every morning?",
+                options: ["She sleeps on bed.", "She cooks breakfast.", "She watches television.", "She parks the car."],
+                answer: 1,
+                explanation: "Kegiatan ibu di dapur setiap pagi adalah 'cooks breakfast' (memasak sarapan)."
+            },
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Medium",
+                question: "The ball is under the table. What is the meaning of 'under the table'?",
+                options: ["Di atas meja", "Di bawah meja", "Di samping meja", "Di belakang meja"],
+                answer: 1,
+                explanation: "'Under the table' artinya di bawah meja."
+            },
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Hard",
+                question: "Joshua is studying math in his bedroom. Where is Joshua?",
+                options: ["In the bedroom", "In the kitchen", "In the garden", "In the dining room"],
+                answer: 0,
+                explanation: "Joshua sedang berada 'In the bedroom' (di kamar tidur)."
+            },
+            {
+                chapter: "Unit 4: Cici Cooks in Kitchen",
+                level: "Medium",
+                question: "There is a mirror ... the wall. (Di dinding)",
+                options: ["on", "under", "between", "in"],
+                answer: 0,
+                explanation: "Untuk cermin atau gambar yang menempel di dinding, gunakan 'on the wall'."
+            }
+        ];
+
+        function startQuiz(freshStart = true) {
+            if (freshStart) {
+                currentQuestionIndex = 0;
+                score = 0;
+                correctCount = 0;
+                wrongCount = 0;
+            }
+            showScreen('screen-quiz');
+            loadQuizQuestion(currentQuestionIndex);
+        }
+
+        function loadQuizQuestion(index) {
+            currentQuestionIndex = index;
+            const q = questionsData[index];
+
+            document.getElementById('quiz-feedback-box').classList.add('hidden');
+
+            document.getElementById('quiz-progress-badge').textContent = `SOAL ${index + 1} DARI ${questionsData.length}`;
+            document.getElementById('quiz-user-badge').textContent = `Explorer: ${studentName}`;
+            document.getElementById('quiz-score-display').textContent = score;
+
+            document.getElementById('question-chapter-badge').textContent = q.chapter;
+            document.getElementById('question-difficulty-badge').textContent = `Level: ${q.level}`;
+
+            const ctxBox = document.getElementById('question-context-box');
+            if (q.context) {
+                ctxBox.textContent = `"${q.context}"`;
+                ctxBox.classList.remove('hidden');
+            } else {
+                ctxBox.classList.add('hidden');
+            }
+
+            document.getElementById('question-text').textContent = q.question;
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            const prefixes = ['A', 'B', 'C', 'D'];
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "opt-btn text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 font-semibold text-slate-700 transition flex items-center gap-3";
+                btn.onclick = () => selectQuizAnswer(idx);
+                btn.innerHTML = `
+                    <span class="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-sm shrink-0 border border-slate-300">${prefixes[idx]}</span>
+                    <span class="text-xs md:text-sm">${opt}</span>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function selectQuizAnswer(selectedIdx) {
+            const q = questionsData[currentQuestionIndex];
+            const isCorrect = (selectedIdx === q.answer);
+
+            const buttons = document.querySelectorAll('.opt-btn');
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.answer) {
+                    btn.classList.remove('border-slate-200');
+                    btn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-900');
+                } else if (idx === selectedIdx && !isCorrect) {
+                    btn.classList.remove('border-slate-200');
+                    btn.classList.add('border-rose-500', 'bg-rose-50', 'text-rose-900');
+                }
+            });
+
+            const fbBox = document.getElementById('quiz-feedback-box');
+            const fbIcon = document.getElementById('feedback-icon');
+            const fbTitle = document.getElementById('feedback-title');
+            const fbExp = document.getElementById('feedback-explanation');
+
+            fbBox.classList.remove('hidden');
+
+            if (isCorrect) {
+                playSFX('correct');
+                score += 2; // 50 questions x 2 points = 100 max
+                correctCount++;
+                document.getElementById('quiz-score-display').textContent = score;
+
+                fbBox.className = "border-2 rounded-2xl p-5 mb-6 bg-emerald-50 border-emerald-300 text-emerald-900";
+                fbIcon.textContent = "✓";
+                fbTitle.textContent = `EXCELLENT, ${studentName}! Jawabanmu Benar!`;
+                fbExp.innerHTML = `<b>Pembahasan:</b> ${q.explanation}`;
+
+                speakNarrator(`Great job ${studentName}! Jawabanmu benar.`);
+            } else {
+                playSFX('wrong');
+                wrongCount++;
+                fbBox.className = "border-2 rounded-2xl p-5 mb-6 bg-rose-50 border-rose-300 text-rose-900";
+                fbIcon.textContent = "✗";
+                fbTitle.textContent = `BELUM TEPAT, ${studentName}! Keep trying!`;
+                fbExp.innerHTML = `<b>Kunci Jawaban Benar:</b> ${q.options[q.answer]}<br><br><b>Pembahasan:</b> ${q.explanation}`;
+
+                speakNarrator(`Belum tepat ${studentName}. Mari pelajari pembahasannya.`);
+            }
+        }
+
+        function nextQuizQuestion() {
+            playSFX('click');
+            if (currentQuestionIndex + 1 < questionsData.length) {
+                loadQuizQuestion(currentQuestionIndex + 1);
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            showScreen('screen-result');
+
+            document.getElementById('result-user-title').textContent = `Awesome, ${studentName}!`;
+            document.getElementById('final-score-val').textContent = score;
+            document.getElementById('final-correct-val').textContent = correctCount;
+            document.getElementById('final-wrong-val').textContent = wrongCount;
+
+            const kkmBadge = document.getElementById('kkm-status-badge');
+            const certBtn = document.getElementById('btn-cert-action');
+            const readMatBtn = document.getElementById('btn-read-material-again');
+            const motivationBox = document.getElementById('result-motivation-box');
+
+            if (score >= 75) {
+                playSFX('fanfare');
+                kkmBadge.textContent = "STATUS: TUNTAS KKM (≥ 75)";
+                kkmBadge.className = "inline-block px-4 py-1.5 rounded-full font-game font-bold text-sm mb-4 bg-emerald-100 text-emerald-800 border border-emerald-300";
+                certBtn.disabled = false;
+                certBtn.classList.remove('hidden', 'opacity-50', 'cursor-not-allowed');
+                readMatBtn.classList.add('hidden');
+                motivationBox.classList.add('hidden');
+
+                speakNarrator(`Congratulations ${studentName}! Kamu LULUS KKM Bahasa Inggris dengan nilai ${score}! Sertifikatmu telah aktif.`);
+            } else {
+                playSFX('wrong');
+                kkmBadge.textContent = "STATUS: BELUM TUNTAS KKM (< 75)";
+                kkmBadge.className = "inline-block px-4 py-1.5 rounded-full font-game font-bold text-sm mb-4 bg-rose-100 text-rose-800 border border-rose-300";
+                certBtn.classList.add('hidden');
+                readMatBtn.classList.remove('hidden');
+                readMatBtn.classList.add('flex');
+                motivationBox.classList.remove('hidden');
+
+                speakNarrator(`Nilaimu ${score}, belum mencapai KKM 75. Jangan menyerah, ayo pelajari lagi materinya!`);
+            }
+        }
+
+        function restartQuiz() {
+            startQuiz(true);
+        }
+
+        function openCertificateModal() {
+            if (score < 75) return;
+            playSFX('click');
+
+            document.getElementById('cert-student-name').textContent = studentName;
+            document.getElementById('cert-score-display').textContent = score;
+
+            const predEl = document.getElementById('cert-predicate-text');
+            if (score >= 90) {
+                predEl.textContent = "🏆 MASTER ENGLISH EXPLORER (Sangat Baik)";
+            } else {
+                predEl.textContent = "🌟 SMART ENGLISH STUDENT (Baik)";
+            }
+
+            const d = new Date();
+            const dateStr = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('cert-date-display').textContent = dateStr;
+
+            document.getElementById('certificate-modal').classList.remove('hidden');
+        }
+
+        function closeCertificateModal() {
+            playSFX('click');
+            document.getElementById('certificate-modal').classList.add('hidden');
+        }
+
+        /* INITIAL PAGE LOAD */
+        window.onload = function() {
+            showScreen('screen-login');
+        };
+    </script>
+</body>
+</html>
